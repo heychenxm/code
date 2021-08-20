@@ -1,0 +1,9 @@
+{
+  "name": "Lib",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "webpack-merge": "^5.8.0"
+  }
+}
