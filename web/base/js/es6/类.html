@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>class</title>
+</head>
+<body>
+    <script>
+        class A {
+            constructor(x, y){
+                this.x = x;
+                this.y = y;
+            }
+            tellHello() {
+                console.log(this.x, this.y)
+            }
+        }
+
+        var a = new A(1,2)
+        a.tellHello()
+        console.log(A);
+        console.log(a);
+
+        function B(x,y) {
+            this.x = x;
+            this.y = y;
+        }
+        B.prototype.tellHello = function () {
+            console.log("hello world");
+        }
+        var b = new B();
+        b.tellHello()
+        console.log(B);
+        console.log(b);
+
+        console.log(typeof B);      // function
+        console.log(typeof A);      // function
+        console.log(B == B.prototype.constructor);  // true
+        console.log(A == A.prototype.constructor);  // true
+
+        class C {
+            constructor(x){this.x = 'this is class C'}
+            test() {console.log(this.x);}
+        }
+        C.prototype.say = function (params) {
+            console.log("????");
+        }
+        Object.assign(C.prototype, {
+            a1(){
+                console.log("this is a1");
+            },
+            a2() {
+                console.log("this is a2");
+            }
+        })
+        var c = new C();
+        console.log(c.test());
+        console.log(c.say());
+        console.log(c.a1());
+        console.log(c.a2());
+        console.log(Object.keys(C.prototype));
+        console.log(c.constructor == C.prototype.constructor);   // false
+    </script>
+</body>
+</html>
