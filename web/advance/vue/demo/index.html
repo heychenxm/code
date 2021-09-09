@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{message}}
+        <span v-bind:title="date">鼠标悬停几秒钟查看此处动态绑定的提示信息！</span>
+        <span title="123">鼠标悬停几秒钟查看此处动态绑定的提示信息！</span>
+        <div @click="reverseMessage">{{testMessage}}</div>
+        <input v-model.lazy='testModel'/>
+        <div>testModel: {{testModel}}</div>
+        <test-item v-show="false" :content="'chenxiaoming'"></test-item>
+        <template>
+            <h2>HELLO TEMPLATE</h2>
+        </template>
+        <div>{{obj.a}}</div>
+        <div v-html='rawhtml'></div>
+        <div>{{rawhtml}}</div>
+        <button v-bind:disabled='buttonBool'>button</button>
+        <div>
+            <div>{{number + 1}}</div>
+            <div>{{ok ? "YES" : "NO"}}</div>
+        </div>
+        <div>
+            <div v-if="isShow">showORhide</div>
+            <button v-on:click='toggle'>toggle{{isShow}}</button>
+        </div>
+        <div>计算属性和监听属性</div>
+        <div>{{message}}</div>
+        <div>{{testMessage}}</div>
+        <div>{{fullMessage}}</div>
+        <!-- <div>{{dealFullName}}</div> -->
+
+
+        <div>v-if</div>
+        <div v-if='ifTrue1'>ifTrue1{{ifTrue1}}</div>
+        <div v-else-if='ifTrue2'>ifTrue2{{ifTrue2}}</div>
+        <div v-else v-show='true'>v-else</div>
+
+        <h2>v-if可复用元素</h2>
+        <div>
+            <div v-if='testType'>
+                <!-- <input v-model="typeModel1" key="type1"/>
+                <div>model1:{{typeModel1}}</div> -->
+                <input key="type1" />
+            </div>
+            <div v-else>
+                <!-- <input v-model="typeModel2" key="type2"/>
+                <div>model2:{{typeModel2}}</div> -->
+                <input key="type2"/>
+            </div>
+            <button @click="toggleType">toggle</button>
+        </div>
+
+        <h2>v-for</h2>
+        <div>
+            <div v-for="(value, key) in arr">{{key}}-{{value}}</div>
+            <div v-for="(value, key) in objArr">{{key}}-{{value}}</div>
+        </div>
+    </div>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component("test-item", {
+            props: ["content"],
+            template: "<div>{{content}}</div>"
+        })
+        var obj = {
+            a: 1
+        }
+        Object.freeze(obj)
+        var app = new Vue({
+            el: "#app",
+            data: {
+                message: "hello world",
+                testMessage: "Hello world",
+                fullMessage: "fullMessage",
+                date: new Date().toLocaleString(),
+                testModel: "",   // 双向数据绑定
+                obj,
+                rawhtml: `<div>rawhtml</div>`,
+                buttonBool: true,
+                number: 1,
+                ok: true,
+                isShow: true,
+                ifTrue1: false,
+                ifTrue2: false,
+                testType: true,
+                typeModel1: "",
+                typeModel2: "",
+                arr: [1,2,3,4],
+                objArr: {
+                    a: 1,
+                    b: 2,
+                    c: 3,
+                    d: 4
+                }
+            },
+            methods: {
+                reverseMessage: function () {
+                    this.testMessage = this.testMessage.split("").reverse().join("");
+                },
+                toggle: function () {
+                    this.isShow = !this.isShow;
+                },
+                toggleType: function () {
+                    this.testType = !this.testType;
+                }
+            },
+            computed: {
+                dealFullName() {
+                    return this.message + ' ' + this.testMessage
+                }
+            },
+            watch: {
+                message: function (val) {
+                    this.fullMessage = val + " " + this.testMessage
+                },
+                testMessage: function (val) {
+                    this.fullMessage = this.message + " " + val
+                }
+            },
+            mounted() {
+                Object.freeze(this.$data.obj)
+            }
+        })
+
+    </script>
+</body>
+</html>
