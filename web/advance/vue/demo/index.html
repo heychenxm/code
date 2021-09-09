@@ -14,7 +14,10 @@
         <div @click="reverseMessage">{{testMessage}}</div>
         <input v-model.lazy='testModel'/>
         <div>testModel: {{testModel}}</div>
-        <test-item :content="'chenxiaoming'"></test-item>
+        <test-item v-show="false" :content="'chenxiaoming'"></test-item>
+        <template>
+            <h2>HELLO TEMPLATE</h2>
+        </template>
         <div>{{obj.a}}</div>
         <div v-html='rawhtml'></div>
         <div>{{rawhtml}}</div>
@@ -26,6 +29,38 @@
         <div>
             <div v-if="isShow">showORhide</div>
             <button v-on:click='toggle'>toggle{{isShow}}</button>
+        </div>
+        <div>计算属性和监听属性</div>
+        <div>{{message}}</div>
+        <div>{{testMessage}}</div>
+        <div>{{fullMessage}}</div>
+        <!-- <div>{{dealFullName}}</div> -->
+
+
+        <div>v-if</div>
+        <div v-if='ifTrue1'>ifTrue1{{ifTrue1}}</div>
+        <div v-else-if='ifTrue2'>ifTrue2{{ifTrue2}}</div>
+        <div v-else v-show='true'>v-else</div>
+
+        <h2>v-if可复用元素</h2>
+        <div>
+            <div v-if='testType'>
+                <!-- <input v-model="typeModel1" key="type1"/>
+                <div>model1:{{typeModel1}}</div> -->
+                <input key="type1" />
+            </div>
+            <div v-else>
+                <!-- <input v-model="typeModel2" key="type2"/>
+                <div>model2:{{typeModel2}}</div> -->
+                <input key="type2"/>
+            </div>
+            <button @click="toggleType">toggle</button>
+        </div>
+
+        <h2>v-for</h2>
+        <div>
+            <div v-for="(value, key) in arr">{{key}}-{{value}}</div>
+            <div v-for="(value, key) in objArr">{{key}}-{{value}}</div>
         </div>
     </div>
     <!-- 开发环境版本，包含了有帮助的命令行警告 -->
@@ -44,6 +79,7 @@
             data: {
                 message: "hello world",
                 testMessage: "Hello world",
+                fullMessage: "fullMessage",
                 date: new Date().toLocaleString(),
                 testModel: "",   // 双向数据绑定
                 obj,
@@ -51,7 +87,19 @@
                 buttonBool: true,
                 number: 1,
                 ok: true,
-                isShow: true
+                isShow: true,
+                ifTrue1: false,
+                ifTrue2: false,
+                testType: true,
+                typeModel1: "",
+                typeModel2: "",
+                arr: [1,2,3,4],
+                objArr: {
+                    a: 1,
+                    b: 2,
+                    c: 3,
+                    d: 4
+                }
             },
             methods: {
                 reverseMessage: function () {
@@ -59,6 +107,22 @@
                 },
                 toggle: function () {
                     this.isShow = !this.isShow;
+                },
+                toggleType: function () {
+                    this.testType = !this.testType;
+                }
+            },
+            computed: {
+                dealFullName() {
+                    return this.message + ' ' + this.testMessage
+                }
+            },
+            watch: {
+                message: function (val) {
+                    this.fullMessage = val + " " + this.testMessage
+                },
+                testMessage: function (val) {
+                    this.fullMessage = this.message + " " + val
                 }
             },
             mounted() {
