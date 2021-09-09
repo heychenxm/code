@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{message}}
+        <span v-bind:title="date">鼠标悬停几秒钟查看此处动态绑定的提示信息！</span>
+        <span title="123">鼠标悬停几秒钟查看此处动态绑定的提示信息！</span>
+        <div @click="reverseMessage">{{testMessage}}</div>
+        <input v-model.lazy='testModel'/>
+        <div>testModel: {{testModel}}</div>
+        <test-item :content="'chenxiaoming'"></test-item>
+        <div>{{obj.a}}</div>
+        <div v-html='rawhtml'></div>
+        <div>{{rawhtml}}</div>
+        <button v-bind:disabled='buttonBool'>button</button>
+        <div>
+            <div>{{number + 1}}</div>
+            <div>{{ok ? "YES" : "NO"}}</div>
+        </div>
+        <div>
+            <div v-if="isShow">showORhide</div>
+            <button v-on:click='toggle'>toggle{{isShow}}</button>
+        </div>
+    </div>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component("test-item", {
+            props: ["content"],
+            template: "<div>{{content}}</div>"
+        })
+        var obj = {
+            a: 1
+        }
+        Object.freeze(obj)
+        var app = new Vue({
+            el: "#app",
+            data: {
+                message: "hello world",
+                testMessage: "Hello world",
+                date: new Date().toLocaleString(),
+                testModel: "",   // 双向数据绑定
+                obj,
+                rawhtml: `<div>rawhtml</div>`,
+                buttonBool: true,
+                number: 1,
+                ok: true,
+                isShow: true
+            },
+            methods: {
+                reverseMessage: function () {
+                    this.testMessage = this.testMessage.split("").reverse().join("");
+                },
+                toggle: function () {
+                    this.isShow = !this.isShow;
+                }
+            },
+            mounted() {
+                Object.freeze(this.$data.obj)
+            }
+        })
+
+    </script>
+</body>
+</html>
