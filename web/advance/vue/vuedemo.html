@@ -22,6 +22,12 @@
             <div v-for="item of test">{{item}}</div>
             <div v-for="(item, name, key) in testObj">{{item}}-{{name}}-{{key}}</div>
         </div>
+
+        <div @click="filterNum">filterNumber</div>
+        <div v-for="num in numberArr">{{num}}</div>
+
+        <div v-on:mousedown.right="testKeyCode">hello world</div>
+        <input v-on:KeyboardEvent.key="testKeyCode"/>
     </div>
     <!-- 开发环境版本，包含了有帮助的命令行警告 -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0/dist/vue.js"></script>
@@ -39,7 +45,8 @@
                     b: 2,
                     c: 3,
                     d: 4
-                }
+                },
+                numberArr: [1,2,3,4,5,6]
             },
             methods: {
                 handleClick: function() {
@@ -50,6 +57,17 @@
                 },
                 innerClick: function() {
                     console.log("this is inner")
+                },
+                filterNum: function() {
+                    this.numberArr = this.numberArr.filter(item=>{
+                        return item > 3
+                    })
+                    console.log(1231);
+                },
+                testKeyCode: function(event) {
+                    console.log("hello world", event);
+                    event.target.blur();
+                    console.log(event.target.value)
                 }
             },
             computed: {
