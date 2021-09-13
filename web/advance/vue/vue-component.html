@@ -7,14 +7,23 @@
     <title>vue component</title>
 </head>
 <body>
-    <div id="app">
+    <div id="app" :style="{fontSize: fontSize + 'em'}">
         <div>{{message}}</div>
-        <button-component></button-component>
+        <button-component1></button-component1>
+        <global-component></global-component>
+        <!-- <fontsize-button @upper-font="upperFontsize" @lower-font="lowerFontsize"></fontsize-button>
+        <prop-component v-for="item in propsMessage" :title="item.title" :key="item.title"></prop-componet> -->
+        <input-component :value="inputValue" @input="inputValue=$event"></input-component>
+        <input-component v-model="test" ></input-component>
+        <slot-component>
+            <div>Hello world</div>
+            <div>hello</div>
+        </slot-component>
     </div>
     <!-- 开发环境版本，包含了有帮助的命令行警告 -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0/dist/vue.js"></script>
     <script>
-        Vue.component('button-component', {
+        Vue.component('button-component1', {
             data: function() {
                 return {
                     count: 1
@@ -27,10 +36,63 @@
             },
             template: `<div v-on:click="add">Click:{{count}}</div>`
         })
+        Vue.component("global-component", {
+            data: function () {
+                return {
+                    message: 'global component'
+                }
+            },
+            template: `<div>{{message}}</div>`
+        })
+        Vue.component('prop-component', {
+            props: ['title'],
+            template: `<div>{{title}}</div>`
+        })
+        Vue.component('fontsize-button', {
+            template: `<div>
+                <div v-on:click="$emit('upper-font', 0.1)">upper</div>
+                <div @click="$emit('lower-font', 0.2)">lower</div>
+            </div>`
+        })
+        Vue.component("input-component", {
+            props: ['value'],
+            template: `
+                <div>
+                    <div>{{value}}</div>
+                    <input v-bind:value="value" v-on:input="$emit('input', $event.target.value)"/>
+                </div>
+            `
+        })
+        Vue.component("slot-component", {
+            template: `
+                <div>
+                    <div>下面是通过slot插入的内容</div>
+                    <slot></slot>    
+                </div>
+            `
+        })
         var app = new Vue({
             el: "#app",
             data: {
-                message: "hello world"
+                fontSize: 1,
+                message: "hello world",
+                propsMessage: [
+                    {title: 'hello 1'},
+                    {title: 'hello 2'},
+                    {title: 'hello 3'}
+                ],
+                inputValue: "hello world",
+                test: 1231
+            },
+            methods: {
+                upperFontsize: function (value) {
+                    console.log(value);
+                    return this.fontSize += value;
+                },
+                lowerFontsize: function (value) {
+                    console.log(value);
+                    return this.fontSize -= value;
+                }
             }
         })
     </script>
