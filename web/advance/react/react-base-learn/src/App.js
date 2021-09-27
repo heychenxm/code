@@ -23,11 +23,11 @@ function App() {
       <Toggle />
       <List arrayList={[1,2,3,4]} />
       {/* <Form /> */}
-      <NewForm />
+      {/* <NewForm />
       <Calculator />
       <Children>
         <h1>HELLO PROPS CHILDREN</h1>
-      </Children>
+      </Children> */}
     </div>
   );
 }

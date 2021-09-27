@@ -8,7 +8,7 @@ export default function HookRef() {
     return (
         <div>
             <input ref={inputRef} />
-            <div onClick={handleFocus}>聚焦</div>
+            <button onClick={handleFocus}>通过事件聚焦</button>
         </div>
     )
 }
