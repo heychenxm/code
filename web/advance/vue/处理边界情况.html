@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vuedemo</title>
+</head>
+<body>
+    <div id="app">
+        {{message}}
+        <button @click="logRoot">getRoot</button>
+        <button @click="logchild">getChild</button>
+        <child-component></child-component>
+    </div>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0/dist/vue.js"></script>
+    <script>
+        Vue.component('child-component', {
+            methods: {
+                getParent: function () {
+                    console.log(this.$parent.message);
+                }
+            },
+            template: "<div><button @click='getParent'>get PARENT</button></div>"
+        })
+        var app = new Vue({
+            el: "#app",
+            data: {
+                message: "处理边界情况"
+            },
+            methods: {
+                logRoot: function () {
+                    console.log(this.$root);
+                },
+                logchild: function () {
+                    console.log(this.$children[0]);
+                }
+            }
+        })
+    </script>
+</body>
+</html>
