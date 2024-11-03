@@ -10,3 +10,5 @@ code for learn & review
 - 本地创建一个ssh
 - https://baijiahao.baidu.com/s?id=1806438139794411540&wfr=spider&for=pc
 - 然后再进行代码的拉取
+- 家里推送使用 ```home ssh```
+- 公司推送使用 ```company ssh```
