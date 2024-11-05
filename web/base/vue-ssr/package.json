@@ -1,0 +1,11 @@
+{
+  "name": "vue-ssr",
+  "version": "1.0.0",
+  "description": "this is a vue ssr project",
+  "main": "index.js",
+  "author": "chenxiaoming",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
