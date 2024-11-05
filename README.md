@@ -12,3 +12,7 @@ code for learn & review
 - 然后再进行代码的拉取
 - 家里推送使用 ```home ssh```
 - 公司推送使用 ```company ssh```
+
+> github仓库可以将private仓库修改为public仓库
+> 普通仓库使用时，需要通过token的方式进行拉取代码
+- https://blog.csdn.net/ziyunLLL/article/details/136802232
