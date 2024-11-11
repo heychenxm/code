@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>{{message}}</div>
+        <div>Checked names: {{ checkedNames }}</div>
+
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames" />
+        <label for="jack">Jack</label>
+
+        <input type="checkbox" id="john" value="John" v-model="checkedNames" />
+        <label for="john">John</label>
+
+        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames" />
+        <label for="mike">Mike</label>
+
+        <input
+        type="checkbox"
+        v-model="toggle"
+        true-value="yes"
+        false-value="no" />{{toggle}}
+
+        {{pick}}
+        <input type="radio" v-model="pick" :value="first" />
+        <input type="radio" v-model="pick" :value="second" />
+
+
+        <select v-model="selected">
+            <!-- 内联对象字面量 -->
+            <option :value="{ number: 123 }">123</option>
+          </select>
+          {{selected}}
+
+          <input type="text" v-model.lazy="inputVal">{{inputVal}}
+
+        <div>
+            <input type="number" v-model.number="num"/>{{num}}
+        </div>
+
+        <div>
+            <input type="text" v-model.trim="trimVal"/>{{trimVal}}
+        </div>
+    </div>
+    <script>
+        const {createApp, ref} = Vue
+        createApp({
+            setup(){
+                const message = ref('hello world');
+                const checkedNames = ref([])
+                const toggle = ref()
+                const pick = ref()
+                const first = 'first'
+                const second = 'second'
+                const selected = ref()
+                const inputVal = ref()
+                const num = ref()
+                const trimVal = ref()
+                return {
+                    message,
+                    checkedNames,
+                    toggle,
+                    pick,
+                    first,
+                    second,
+                    selected,
+                    inputVal,
+                    num,
+                    trimVal
+                }
+            }
+        }).mount("#app")
+    </script>
+</body>
+</html>
